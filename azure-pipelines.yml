@@ -19,6 +19,22 @@ jobs:
       CONAN_DOCKER_32_IMAGES: True
   strategy:
     matrix:
+      Andoid x86_64:
+        CONAN_CLANG_VERSIONS: 8
+        CONAN_DOCKER_IMAGE: conanio/android-clang8
+        CONAN_ARCHS: "x86_64"
+      Andoid x86:
+        CONAN_CLANG_VERSIONS: 8
+        CONAN_DOCKER_IMAGE: conanio/android-clang8-x86
+        CONAN_ARCHS: "x86"
+      Andoid armv7:
+        CONAN_CLANG_VERSIONS: 8
+        CONAN_DOCKER_IMAGE: conanio/android-clang8-armv7
+        CONAN_ARCHS: "armv7"
+      Andoid armv8:
+        CONAN_CLANG_VERSIONS: 8
+        CONAN_DOCKER_IMAGE: conanio/android-clang8-armv8
+        CONAN_ARCHS: "armv8"
       Gcc 4.9 x86:
         CONAN_GCC_VERSIONS: 4.9
         CONAN_DOCKER_IMAGE: conanio/gcc49
