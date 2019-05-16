@@ -265,11 +265,11 @@ class QtConan(ConanFile):
                     elif self.options.opengl == "es2":
                         pack_names.append("libgles2-mesa-dev")
                 else:
-                    if not tools.os_info.linux_distro.startswith("opensuse") and not tools.os_info.linux_distro.startswith("sles"):
+                    if not tools.os_info.linux_distro.startswith(("opensuse", "sles")):
                         pack_names = ["libxcb"]
                     if not tools.os_info.with_pacman:
                         if self.options.opengl == "desktop":
-                            if tools.os_info.linux_distro.startswith("opensuse") or tools.os_info.linux_distro.startswith("sles"):
+                            if tools.os_info.linux_distro.startswith(("opensuse", "sles")):
                                 pack_names.append("Mesa-libGL-devel")
                             else:
                                 pack_names.append("mesa-libGL-devel")
@@ -361,7 +361,7 @@ class QtConan(ConanFile):
 
     def build(self):
         args = ["-confirm-license", "-silent", "-nomake examples", "-nomake tests",
-                "-prefix %s" % self.package_folder]
+                "-prefix", self.package_folder.replace("/", "\\") if tools.os_info.is_windows else self.package_folder]
         if self.options.commercial:
             args.append("-commercial")
         else:
